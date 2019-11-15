@@ -3,4 +3,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fa_baseball_ball_solid"></string>
+    <string name="activity_place">Place:</string>
+    <string name="add_button_activity">Add activity</string>
+    <string name="add_button_friend">Add Friend</string>
+    <string name="temp_name_friend">name Friend</string>
+    <string name="temp_name_activity">name activity</string>
+    <string name="temp_name_place">name place</string>
+    <string name="temp_role">Patron</string>
 </resources>
