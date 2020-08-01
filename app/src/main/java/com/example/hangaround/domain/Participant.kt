@@ -6,13 +6,11 @@ import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
-@Entity(tableName = "persons")
 @Parcelize
-data class Person constructor(
-    @PrimaryKey
+data class Participant constructor(
     val id: String,
-    val name: String,
-    var friends: List<String>
+    val role :String,
+    val personId: String
 ) : Parcelable {
 
 }

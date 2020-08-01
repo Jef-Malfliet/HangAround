@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/activityListFragment">
+    <fragment
+        android:id="@+id/activityListFragment"
+        android:name="com.example.hangaround.activity.list.ActivityListFragment"
+        android:label="ActivityListFragment" >
+        <action
+            android:id="@+id/action_activityListFragment_to_activityDetailFragment"
+            app:destination="@id/activityDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/activityDetailFragment"
+        android:name="com.example.hangaround.activity.detail.ActivityDetailFragment"
+        android:label="ActivityDetailFragment" >
+        <argument
+            android:name="ActivityId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_activityDetailFragment_to_activityListFragment"
+            app:destination="@id/activityListFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+</navigation>

@@ -6,40 +6,30 @@ import androidx.room.*
 import com.example.hangaround.domain.Activity
 import com.example.hangaround.domain.Person
 
-//DAOs
-@Dao
-interface ActvityDao{
-    @Query("SELECT * FROM activity")
-    fun getActivities(): LiveData<List<Activity>>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg activities: Activity)
-}
-
-@Dao
-interface PersonDao{
-    @Query("SELECT * FROM person")
-    fun getPersons(): LiveData<List<Person>>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg persons: Person)
-}
-
 //Database
-@Database(entities = [Activity::class, Person::class], version = 1)
-abstract class HangAroundDatabase: RoomDatabase(){
-    abstract val activityDao: ActvityDao
+@Database(entities = [Activity::class, Person::class], version = 5, exportSchema = false)
+@TypeConverters(Converters::class)
+abstract class HangAroundDatabase : RoomDatabase() {
+    abstract val activityDao: ActivityDao
     abstract val personDao: PersonDao
-}
 
-private lateinit var INSTANCE: HangAroundDatabase
+    companion object {
 
-fun getDatabase(context: Context): HangAroundDatabase {
-    synchronized(HangAroundDatabase::class.java) {
-        if (!::INSTANCE.isInitialized) {
-            INSTANCE = Room.databaseBuilder(context.applicationContext,
-                HangAroundDatabase::class.java, "HangAroundDB").build()
+        @Volatile
+        private lateinit var INSTANCE: HangAroundDatabase
+
+        fun getDatabase(context: Context): HangAroundDatabase {
+            synchronized(HangAroundDatabase::class.java) {
+                if (!::INSTANCE.isInitialized) {
+                    INSTANCE = Room.databaseBuilder(
+                        context.applicationContext,
+                        HangAroundDatabase::class.java, "HangAroundDB"
+                    )
+                        .fallbackToDestructiveMigration()
+                        .build()
+                }
+            }
+            return INSTANCE
         }
     }
-    return INSTANCE
 }

@@ -11,4 +11,13 @@
     <string name="temp_name_activity">name activity</string>
     <string name="temp_name_place">name place</string>
     <string name="temp_role">Patron</string>
+    <string name="lbl_from">From:</string>
+    <string name="iconTitle_activities">Activities</string>
+    <string name="iconTitle_friends">Friends</string>
+    <string name="iconTitle_profile">Profile</string>
+    <string name="imageDesc_logo_activity">Logo activity</string>
+    <string name="textview_participantslist_label">Participants</string>
+    <string name="textview_start_end_date_label"><![CDATA[Start & end date]]></string>
+    <string name="textview_until_label">until</string>
+    <string name="textview_description_label">Description</string>
 </resources>
