@@ -14,9 +14,7 @@ class ParticipantListAdapter(val activity: LiveData<Activity>) :
     ListAdapter<Person, ParticipantListAdapter.ViewHolder>(PersonDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(
-            parent
-        )
+        return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

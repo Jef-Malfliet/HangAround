@@ -10,7 +10,7 @@ import com.example.hangaround.databinding.ListItemActivityBinding
 import com.example.hangaround.domain.Activity
 import com.example.hangaround.domain.Person
 
-class ActivityListAdapter(val clickListener: ActivityListener) :
+class ActivityListAdapter(private val clickListener: ActivityListener) :
     ListAdapter<Activity, ActivityListAdapter.ViewHolder>(
         ActivityDiffCallback()
     ) {

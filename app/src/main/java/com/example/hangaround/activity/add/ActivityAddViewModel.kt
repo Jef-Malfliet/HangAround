@@ -1,13 +1,11 @@
-package com.example.hangaround.activity.list
+package com.example.hangaround.activity.add
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.hangaround.domain.Activity
 import com.example.hangaround.domain.Person
-import com.example.hangaround.persistence.database.HangAroundDatabase.Companion.getDatabase
+import com.example.hangaround.persistence.database.HangAroundDatabase
 import com.example.hangaround.persistence.repository.ActivityRepository
 import com.example.hangaround.persistence.repository.PersonRepository
 import kotlinx.coroutines.CoroutineScope
@@ -15,41 +13,40 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class ActivityListViewModel(application: Application) : ViewModel() {
+class ActivityAddViewModel(application: Application, private var activityId: String) : ViewModel() {
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    private val database = getDatabase(application)
+    private val database = HangAroundDatabase.getDatabase(application)
 
-    private val activityRepository = ActivityRepository(database)
     private val personRepository = PersonRepository(database)
+    private val activityRepository = ActivityRepository(database)
 
-    private val _activities = activityRepository.activities
-    val activities: LiveData<List<Activity>>
-        get() = _activities
+    val activity = database.activityDao.getActivity(activityId)
 
     private val _persons = personRepository.persons
     val persons: LiveData<List<Person>>
         get() = _persons
 
-    fun refreshActivities() {
+    fun getActivity() {
         coroutineScope.launch {
-            activityRepository.refreshActivities()
+            activityRepository.getActivity(activityId)
         }
     }
 
-    fun refreshPersons() {
+    fun getParticipants() {
         coroutineScope.launch {
-            personRepository.refreshPersons()
+            personRepository.getParticipants(activityId)
         }
     }
 
-    class Factory(val app: Application) : ViewModelProvider.Factory {
+    class Factory(val app: Application, private val activityId: String) :
+        ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(ActivityListViewModel::class.java)) {
+            if (modelClass.isAssignableFrom(ActivityAddViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return ActivityListViewModel(
-                    app
+                return ActivityAddViewModel(
+                    app, activityId
                 ) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")

@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class ActivityDetailViewModel(application: Application, val activityId: String) : ViewModel() {
+class ActivityDetailViewModel(application: Application, private val activityId: String) : ViewModel() {
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
@@ -39,7 +39,7 @@ class ActivityDetailViewModel(application: Application, val activityId: String) 
         viewModelJob.cancel()
     }
 
-    class Factory(val app: Application, val activityId: String) : ViewModelProvider.Factory {
+    class Factory(val app: Application, private val activityId: String) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(ActivityDetailViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")

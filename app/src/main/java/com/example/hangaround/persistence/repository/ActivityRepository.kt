@@ -5,6 +5,9 @@ import com.example.hangaround.persistence.network.HangAroundAPI
 import com.example.hangaround.persistence.network.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import timber.log.Timber
+import java.lang.Exception
 
 class ActivityRepository(private val database: HangAroundDatabase) {
 
@@ -12,16 +15,26 @@ class ActivityRepository(private val database: HangAroundDatabase) {
 
     suspend fun refreshActivities() {
         withContext(Dispatchers.IO) {
-            val activityDTOList = HangAroundAPI.service.getActivities().await()
-            database.activityDao.insertAll(*activityDTOList.asDatabaseModel())
+            try {
+                val activityDTOList = HangAroundAPI.service.getActivities().await()
+                database.activityDao.insertAll(*activityDTOList.asDatabaseModel())
+            } catch (ex: Exception) {
+                Timber.d(ex)
+            }
         }
     }
 
     suspend fun getActivity(id: String) {
         withContext(Dispatchers.IO) {
-            val personDTOList =
-                HangAroundAPI.service.getPersonsInActivity(activityId = id).await()
-            database.personDao.insertAll(*personDTOList.asDatabaseModel())
+            val activity = database.activityDao.getActivity(id)
+            if (activity.value == null) {
+                try {
+                    val activityDTO = HangAroundAPI.service.getActivityById(id).await()
+                    database.activityDao.insertAll(*activityDTO.asDatabaseModel())
+                } catch (ex: HttpException) {
+                    Timber.d(ex)
+                }
+            }
         }
     }
 }

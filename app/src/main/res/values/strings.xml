@@ -20,4 +20,11 @@
     <string name="textview_start_end_date_label"><![CDATA[Start & end date]]></string>
     <string name="textview_until_label">until</string>
     <string name="textview_description_label">Description</string>
+    <string name="textview_place_label">Location</string>
+    <string name="textview_start_date">Start Date</string>
+    <string name="textview_at_label">At</string>
+    <string name="textview_select_time_label">Select Time</string>
+    <string name="textview_select_date_label">Select Date</string>
+    <string name="textview_name_label">Name</string>
+    <string name="textview_end_date_label">End Date</string>
 </resources>

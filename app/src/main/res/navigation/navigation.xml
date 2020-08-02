@@ -6,19 +6,26 @@
     <fragment
         android:id="@+id/activityListFragment"
         android:name="com.example.hangaround.activity.list.ActivityListFragment"
-        android:label="ActivityListFragment" >
+        android:label="ActivityListFragment">
         <action
             android:id="@+id/action_activityListFragment_to_activityDetailFragment"
             app:destination="@id/activityDetailFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left" />
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_activityListFragment_to_activityAddFragment"
+            app:destination="@id/activityAddFragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bottom" />
     </fragment>
     <fragment
         android:id="@+id/activityDetailFragment"
         android:name="com.example.hangaround.activity.detail.ActivityDetailFragment"
-        android:label="ActivityDetailFragment" >
+        android:label="ActivityDetailFragment">
         <argument
             android:name="ActivityId"
             app:argType="string" />
@@ -29,5 +36,16 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/activityAddFragment"
+        android:name="com.example.hangaround.activity.add.ActivityAddFragment"
+        android:label="ActivityAddFragment">
+        <action
+            android:id="@+id/action_activityAddFragment_to_activityListFragment"
+            app:destination="@id/activityListFragment" />
+        <argument
+            android:name="activityId"
+            app:argType="string" />
     </fragment>
 </navigation>

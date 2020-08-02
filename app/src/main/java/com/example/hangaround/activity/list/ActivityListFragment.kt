@@ -15,6 +15,7 @@ import com.example.hangaround.MainActivity
 import com.example.hangaround.R
 import com.example.hangaround.databinding.FragmentActivityListBinding
 import com.example.hangaround.domain.Activity
+import kotlinx.android.synthetic.main.fragment_activity_list.*
 
 class ActivityListFragment : Fragment() {
 
@@ -39,25 +40,20 @@ class ActivityListFragment : Fragment() {
         )
             .get(ActivityListViewModel::class.java)
 
-        viewModel.navigateToActivityDetail.observe(
-            viewLifecycleOwner,
-            Observer { activityId ->
-                activityId?.let {
-                    this.findNavController().navigate(
-                        ActivityListFragmentDirections.actionActivityListFragmentToActivityDetailFragment(
-                            activityId
-                        )
-                    )
-                    viewModel.onActivityDetailNavigated()
-                }
-            })
-
         listAdapter = ActivityListAdapter(ActivityListener { activityId ->
-            viewModel.onActivityClicked(activityId)
+            findNavController().navigate(
+                ActivityListFragmentDirections.actionActivityListFragmentToActivityDetailFragment(
+                    activityId
+                )
+            )
         })
         binding.rvActivities.adapter = listAdapter
 
-        (activity as MainActivity).supportActionBar!!.title = "Activities"
+        (requireActivity() as MainActivity).supportActionBar!!.title = "Activities"
+
+        binding.floatingActionButton.setOnClickListener {
+            findNavController().navigate(ActivityListFragmentDirections.actionActivityListFragmentToActivityAddFragment(""))
+        }
 
         viewModel.refreshActivities()
         viewModel.refreshPersons()

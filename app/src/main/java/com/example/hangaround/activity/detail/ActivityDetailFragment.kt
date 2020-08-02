@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -30,7 +29,7 @@ class ActivityDetailFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_activity_detail, container, false)
 
-        var args = arguments?.let { ActivityDetailFragmentArgs.fromBundle(it) }
+        val args = arguments?.let { ActivityDetailFragmentArgs.fromBundle(it) }
 
         val application = requireNotNull(activity).application
         viewModel = ViewModelProviders.of(
@@ -42,6 +41,14 @@ class ActivityDetailFragment : Fragment() {
         listAdapter = ParticipantListAdapter(viewModel.activity)
         binding.rvParticipants.adapter = listAdapter
 
+        setupNavigation()
+
+        viewModel.getParticipants()
+
+        return binding.root
+    }
+
+    private fun setupNavigation() {
         val backButtonCallback: OnBackPressedCallback =
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
@@ -50,10 +57,6 @@ class ActivityDetailFragment : Fragment() {
                 }
             }
         requireActivity().onBackPressedDispatcher.addCallback(this, backButtonCallback)
-
-        viewModel.getParticipants()
-
-        return binding.root
     }
 
     override fun onStart() {
@@ -67,7 +70,7 @@ class ActivityDetailFragment : Fragment() {
 
         viewModel.activity.observe(viewLifecycleOwner, Observer {
             it?.let {
-                (activity as MainActivity).supportActionBar!!.title = it.name
+                (requireActivity() as MainActivity).supportActionBar!!.title = it.name
                 binding.activity = it
             }
         })

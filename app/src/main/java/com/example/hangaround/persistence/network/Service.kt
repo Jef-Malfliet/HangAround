@@ -10,7 +10,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-private const val BASE_URL = "https://f281a85bdef2.ngrok.io"
+private const val BASE_URL = "https://fc9213ad4ef3.ngrok.io"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -45,7 +45,7 @@ interface HangAroundAPIService {
     fun getActivities(): Deferred<List<ActivityDTO>>
 
     @GET("getActivityById")
-    fun getActivityById(): Deferred<List<ActivityDTO>>
+    fun getActivityById(@Query("id") activityId: String): Deferred<List<ActivityDTO>>
 
     @GET("getActivitiesByOwner")
     fun getActivitiesByOwner(): Deferred<List<ActivityDTO>>

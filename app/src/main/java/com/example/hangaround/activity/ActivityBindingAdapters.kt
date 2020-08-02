@@ -42,3 +42,10 @@ fun TextView.setActivityDescription(activity: Activity?) {
         text = activity.description
     }
 }
+
+@BindingAdapter("activityPlaceString")
+fun TextView.setActivityPlace(activity: Activity?) {
+    activity?.let {
+        text = activity.place
+    }
+}
