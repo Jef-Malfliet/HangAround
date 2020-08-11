@@ -14,7 +14,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 
-private const val BASE_URL = "https://e329bd76d2c9.ngrok.io"
+private const val BASE_URL = "https://hangaround.herokuapp.com"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
