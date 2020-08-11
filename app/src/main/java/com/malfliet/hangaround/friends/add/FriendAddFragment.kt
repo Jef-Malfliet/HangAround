@@ -7,12 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.malfliet.hangaround.MainActivity
 import com.malfliet.hangaround.R
+import com.malfliet.hangaround.activity.detail.ActivityDetailFragmentDirections
 import com.malfliet.hangaround.databinding.FragmentAddFriendBinding
 import com.malfliet.hangaround.domain.Person
 
@@ -36,7 +39,6 @@ class FriendAddFragment : Fragment() {
         ).get(FriendAddViewModel::class.java)
 
         val actionbar = (requireActivity() as MainActivity).supportActionBar!!
-        actionbar.setDisplayHomeAsUpEnabled(false)
         actionbar.title = "Add Friend"
 
         listAdapter = FriendsListAddAdapter(FriendListener {
@@ -52,7 +54,20 @@ class FriendAddFragment : Fragment() {
             viewmodel.getPersonsWithNameLike(nameString)
         }
 
+        setupNavigation()
+
         return binding.root
+    }
+
+    private fun setupNavigation() {
+        val backButtonCallback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController()
+                        .navigate(FriendAddFragmentDirections.actionFriendAddFragmentToFriends())
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(this, backButtonCallback)
     }
 
     override fun onStart() {

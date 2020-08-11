@@ -72,10 +72,22 @@
         android:label="FriendsListFragment" >
         <action
             android:id="@+id/action_friends_to_friendAddFragment"
-            app:destination="@id/friendAddFragment" />
+            app:destination="@id/friendAddFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/friendAddFragment"
         android:name="com.malfliet.hangaround.friends.add.FriendAddFragment"
-        android:label="FriendAddFragment" />
+        android:label="FriendAddFragment" >
+        <action
+            android:id="@+id/action_friendAddFragment_to_friends"
+            app:destination="@id/friends"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 </navigation>
