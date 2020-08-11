@@ -7,280 +7,319 @@
 
         <variable
             name="activity"
-            type="com.example.hangaround.domain.Activity" />
+            type="com.malfliet.hangaround.domain.Activity" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageView_thumbnail"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginTop="16dp"
-            android:src="@mipmap/ic_launcher"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ScrollView
-            android:id="@+id/scrollView_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="60dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.666"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView_thumbnail">
+            android:layout_height="match_parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageView_thumbnail"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="16dp"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textview_error"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="18sp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_thumbnail" />
 
-                <TextView
-                    android:id="@+id/textview_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/textview_name_label"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?android:attr/listDivider" />
-
-                <EditText
-                    android:id="@+id/input_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/textview_name_label"
-                    android:padding="8dp" />
-
-                <TextView
-                    android:id="@+id/textview_description_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/textview_description_label"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?android:attr/listDivider" />
-
-                <EditText
-                    android:id="@+id/input_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:gravity="top|start"
-                    android:hint="@string/textview_description_label"
-                    android:inputType="textMultiLine"
-                    android:lines="6"
-                    android:overScrollMode="always"
-                    android:padding="8dp"
-                    android:scrollbarStyle="insideInset"
-                    android:scrollbars="vertical"
-                    android:scrollHorizontally="false" />
-
-                <TextView
-                    android:id="@+id/textview_place"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/textview_place_label"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?android:attr/listDivider" />
-
-                <EditText
-                    android:id="@+id/input_location"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/textview_place_label"
-                    android:padding="8dp" />
-
-                <TextView
-                    android:id="@+id/textview_start_date_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/textview_start_date"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?android:attr/listDivider" />
+            <ScrollView
+                android:id="@+id/scrollView_content"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="60dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.666"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textview_error">
 
                 <LinearLayout
-                    android:id="@+id/linearLayout_start_date_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="8dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textview_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/textview_name_label"
+                        android:textAlignment="center"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <EditText
+                        android:id="@+id/input_name"
+                        activityNameInputString="@{activity}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/textview_name_label"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:id="@+id/textview_description_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/textview_description_label"
+                        android:textAlignment="center"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <EditText
+                        android:id="@+id/input_description"
+                        activityDescriptionInputString="@{activity}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:gravity="top|start"
+                        android:hint="@string/textview_description_label"
+                        android:inputType="textMultiLine"
+                        android:lines="6"
+                        android:overScrollMode="always"
+                        android:padding="8dp"
+                        android:scrollbarStyle="insideInset"
+                        android:scrollbars="vertical"
+                        android:scrollHorizontally="false" />
+
+                    <TextView
+                        android:id="@+id/textview_place"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/textview_place_label"
+                        android:textAlignment="center"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <EditText
+                        android:id="@+id/input_location"
+                        activityLocationInputString="@{activity}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/textview_place_label"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:id="@+id/textview_start_date_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/textview_start_date"
+                        android:textAlignment="center"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
 
                     <LinearLayout
-                        android:id="@+id/linearLayout_start_date"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/linearLayout_start_date_time"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginVertical="8dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/textView_start_date"
+                        <LinearLayout
+                            android:id="@+id/linearLayout_start_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/textview_select_date_label"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textView_start_date"
+                                activityStartDateInputString="@{activity}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/textview_select_date_label"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginStart="2dp"
+                                app:srcCompat="@drawable/ic_baseline_edit_24" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textView_at"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:text="@string/textview_at_label"
+                            android:textAlignment="center"
                             android:textSize="16sp" />
 
-                        <ImageView
-                            android:id="@+id/imageView2"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginStart="2dp"
-                            app:srcCompat="@drawable/ic_baseline_edit_24" />
+                        <LinearLayout
+                            android:id="@+id/linearLayout_start_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textView_start_time"
+                                activityStartTimeInputString="@{activity}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/textview_select_time_label"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:id="@+id/imageView3"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                app:srcCompat="@drawable/ic_baseline_edit_24" />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/textView_at"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/textview_end_date_label"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:text="@string/textview_at_label"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/textview_end_date_label"
                         android:textAlignment="center"
-                        android:textSize="16sp" />
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
 
                     <LinearLayout
-                        android:id="@+id/linearLayout_start_time"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/linearLayout_end_date_time"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/textView_start_time"
+                        <LinearLayout
+                            android:id="@+id/linearLayout_end_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/textview_select_time_label"
-                            android:textSize="16sp" />
+                            android:orientation="horizontal">
 
-                        <ImageView
-                            android:id="@+id/imageView3"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            app:srcCompat="@drawable/ic_baseline_edit_24" />
-                    </LinearLayout>
-                </LinearLayout>
+                            <TextView
+                                android:id="@+id/textView_end_date"
+                                activityEndDateInputString="@{activity}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/textview_select_date_label"
+                                android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/textview_end_date_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/textview_end_date_label"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
+                            <ImageView
+                                android:id="@+id/imageView5"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginStart="2dp"
+                                app:srcCompat="@drawable/ic_baseline_edit_24" />
+                        </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?android:attr/listDivider" />
-
-                <LinearLayout
-                    android:id="@+id/linearLayout_end_date_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/linearLayout_end_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textView_end_date"
+                            android:id="@+id/textView_at2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/textview_select_date_label"
+                            android:layout_marginHorizontal="16dp"
+                            android:text="@string/textview_at_label"
+                            android:textAlignment="center"
                             android:textSize="16sp" />
 
-                        <ImageView
-                            android:id="@+id/imageView5"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginStart="2dp"
-                            app:srcCompat="@drawable/ic_baseline_edit_24" />
-                    </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/linearLayout_end_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
+                            <TextView
+                                android:id="@+id/textView_end_time"
+                                activityEndTimeInputString="@{activity}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/textview_select_time_label"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:id="@+id/imageView6"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                app:srcCompat="@drawable/ic_baseline_edit_24" />
+                        </LinearLayout>
+                    </LinearLayout>
 
                     <TextView
-                        android:id="@+id/textView_at2"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/textview_participantslist"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:text="@string/textview_at_label"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/textview_participantslist_label"
                         android:textAlignment="center"
-                        android:textSize="16sp" />
+                        android:textSize="18sp" />
 
-                    <LinearLayout
-                        android:id="@+id/linearLayout_end_time"
-                        android:layout_width="wrap_content"
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvParticipants"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/textView_end_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/textview_select_time_label"
-                            android:textSize="16sp" />
-
-                        <ImageView
-                            android:id="@+id/imageView6"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            app:srcCompat="@drawable/ic_baseline_edit_24" />
-                    </LinearLayout>
+                        android:layout_marginBottom="80dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
                 </LinearLayout>
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/textview_participantslist"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/textview_participantslist_label"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floating_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom|end"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="70dp"
+            app:backgroundTint="@color/colorPrimary"
+            app:srcCompat="@drawable/ic_baseline_person_add_24" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?android:attr/listDivider" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvParticipants"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-            </LinearLayout>
-        </ScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

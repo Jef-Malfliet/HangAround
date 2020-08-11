@@ -7,7 +7,7 @@
 
         <variable
             name="activity"
-            type="com.example.hangaround.domain.Activity" />
+            type="com.malfliet.hangaround.domain.Activity" />
 
         <variable
             name="ownerName"
@@ -15,7 +15,7 @@
 
         <variable
             name="clickListener"
-            type="com.example.hangaround.activity.list.ActivityListener" />
+            type="com.malfliet.hangaround.activity.list.ActivityListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

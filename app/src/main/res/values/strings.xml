@@ -27,4 +27,27 @@
     <string name="textview_select_date_label">Select Date</string>
     <string name="textview_name_label">Name</string>
     <string name="textview_end_date_label">End Date</string>
+    <string name="save">Save</string>
+    <string name="textview_friend_label">Friend</string>
+    <string name="button_choose_friend">Choose friend</string>
+    <string name="textview_role_label">Role</string>
+    <string name="role_label">Role</string>
+    <string name="cancel">Cancel</string>
+    <string name="textview_every_field_must_be_filled_in_label">Every field must be filled out</string>
+    <string name="textview_start_date_before_end_date_label">The startDate must be before the endDate</string>
+    <string name="textview_dates_after_today_label">The dates must be after today</string>
+    <string name="textview_participant_not_empty">Must add at least one participant</string>
+    <string name="actionbar_delete">delete</string>
+    <string name="actionbar_edit">edit</string>
+    <string name="actionbar_save">Save</string>
+    <string name="com_auth0_client_id">6R8Qdb1yJ06DOSN5rZvUhnQbWB9PxxfJ</string>
+    <string name="com_auth0_domain">dev-7lg1fu6u.eu.auth0.com</string>
+    <string name="textview_hangaround">HangAround</string>
+    <string name="button_login_label">Login</string>
+    <string name="actionbar_logout">logout</string>
+    <string name="textview_email_label">Email</string>
+    <string name="textview_edit_label">Edit</string>
+    <string name="edittext_friend_hint">Friend</string>
+    <string name="contentDescription_search_button">search button</string>
+    <string name="edittext_search_new_friend">Search new friend</string>
 </resources>

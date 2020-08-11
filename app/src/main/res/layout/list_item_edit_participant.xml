@@ -3,6 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="participant"
+            type="com.malfliet.hangaround.domain.Participant" />
+
+        <variable
+            name="editClickListener"
+            type="com.malfliet.hangaround.activity.add.EditClickListener" />
+
+        <variable
+            name="deleteClickListener"
+            type="com.malfliet.hangaround.activity.add.DeleteClickListener" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -22,11 +37,12 @@
 
         <TextView
             android:id="@+id/textView_name"
-            android:layout_width="112dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="16dp"
             android:ellipsize="end"
+            android:textAlignment="center"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView_activity"
@@ -45,11 +61,13 @@
 
         <TextView
             android:id="@+id/textView_role"
-            android:layout_width="112dp"
+            participantRoleString="@{participant}"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
             android:ellipsize="end"
+            android:textAlignment="center"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/divider"
@@ -57,9 +75,10 @@
 
         <ImageButton
             android:id="@+id/button_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
             android:layout_marginStart="8dp"
+            android:onClick="@{() -> editClickListener.onClick(participant)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView_role"
             app:layout_constraintTop_toTopOf="parent"
@@ -67,9 +86,9 @@
 
         <ImageButton
             android:id="@+id/button_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:onClick="@{() -> deleteClickListener.onClick(participant)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/button_edit"
             app:layout_constraintTop_toTopOf="parent"
