@@ -1,9 +1,12 @@
 package com.malfliet.hangaround.friends.add
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -44,6 +47,7 @@ class FriendAddFragment : Fragment() {
         binding.rvNewFriends.adapter = listAdapter
 
         binding.imageButtonSearch.setOnClickListener {
+            hideKeyboardFrom(context!!, view!!)
             val nameString = binding.editTextSearch.text.toString()
             viewmodel.getPersonsWithNameLike(nameString)
         }
@@ -64,5 +68,11 @@ class FriendAddFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun hideKeyboardFrom(context: Context, view: View) {
+        val imm: InputMethodManager =
+            context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

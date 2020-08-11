@@ -1,9 +1,12 @@
 package com.malfliet.hangaround.friends.list
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -38,12 +41,13 @@ class FriendListFragment : Fragment() {
         actionbar.setDisplayHomeAsUpEnabled(false)
         actionbar.title = "Friends"
 
-        listAdapter = FriendsListAdapter(PersonListener{
+        listAdapter = FriendsListAdapter(PersonListener {
             viewmodel.removeFriend(it)
         })
         binding.rvFriends.adapter = listAdapter
 
         binding.imageButtonSearch.setOnClickListener {
+            hideKeyboardFrom(context!!, view!!)
             val searchString = binding.editTextSearch.text.toString()
             val loggedInPerson =
                 viewmodel.persons.value!!.find { person -> person.id == viewmodel.personId }
@@ -78,5 +82,11 @@ class FriendListFragment : Fragment() {
                 listAdapter.submitList(friends)
             }
         })
+    }
+
+    private fun hideKeyboardFrom(context: Context, view: View) {
+        val imm: InputMethodManager =
+            context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

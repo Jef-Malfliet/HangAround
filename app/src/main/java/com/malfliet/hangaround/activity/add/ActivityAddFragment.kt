@@ -1,12 +1,15 @@
 package com.malfliet.hangaround.activity.add
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.content.DialogInterface
+import android.content.res.ColorStateList
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
@@ -127,6 +130,7 @@ class ActivityAddFragment : Fragment() {
 
     private fun setupParticipantDialog(inflater: LayoutInflater) {
         binding.floatingActionButton.setOnClickListener {
+            hideKeyboardFrom(context!!, view!!)
             buildParticipantDialog(inflater, null, null)
         }
     }
@@ -199,6 +203,7 @@ class ActivityAddFragment : Fragment() {
                     }
                     viewModel.participants.notifyObserver()
                     dialog.dismiss()
+                    view!!.clearFocus();
                 }
             }
         }
@@ -360,6 +365,15 @@ class ActivityAddFragment : Fragment() {
                 val tempList = mutableListOf<Participant>()
                 tempList.addAll(it)
                 listAdapter.submitList(tempList.sortedBy { participant -> participant.role })
+                viewModel.persons.value?.let {
+                    val possibleParticipantNames =
+                        viewModel.persons.value!!.filter { person -> person.id != viewModel.personId }
+                            .filter { person ->
+                                !tempList.map { part -> part.personId }.contains(person.id)
+                            }
+                            .map { person -> person.name }
+                    fillSpinnerAdapter(possibleParticipantNames)
+                }
             }
         })
 
@@ -369,11 +383,28 @@ class ActivityAddFragment : Fragment() {
                 spinnerAdapter.clear()
                 val participantIds =
                     viewModel.participants.value!!.map { person -> person.personId }
-                spinnerAdapter.addAll(it.filter { person -> person.id != viewModel.personId }
-                    .filter { person -> !participantIds.contains(person.id) }
-                    .map { person -> person.name })
+                val possibleParticipantNames =
+                    it.filter { person -> person.id != viewModel.personId }
+                        .filter { person -> !participantIds.contains(person.id) }
+                        .map { person -> person.name }
+                fillSpinnerAdapter(possibleParticipantNames)
             }
         })
+    }
+
+    private fun fillSpinnerAdapter(possibleParticipantNames: List<String>) {
+        if (possibleParticipantNames.isNotEmpty()) {
+            binding.floatingActionButton.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
+            binding.floatingActionButton.isEnabled = true
+            binding.floatingActionButton.isClickable = true
+            spinnerAdapter.addAll(possibleParticipantNames)
+        } else {
+            binding.floatingActionButton.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.grey))
+            binding.floatingActionButton.isEnabled = false
+            binding.floatingActionButton.isClickable = false
+        }
     }
 
     private fun updateActivity(): Boolean {
@@ -469,5 +500,11 @@ class ActivityAddFragment : Fragment() {
         }
         return filledIn
 
+    }
+
+    private fun hideKeyboardFrom(context: Context, view: View) {
+        val imm: InputMethodManager =
+            context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
