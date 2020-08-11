@@ -1,6 +1,7 @@
 package com.malfliet.hangaround.domain
 
 import android.os.Parcelable
+import com.malfliet.hangaround.persistence.database.PersonDE
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
@@ -13,4 +14,8 @@ data class Person constructor(
     var friends: MutableList<String>
 ) : Parcelable {
 
+}
+
+fun Person.asDatabaseModel(): PersonDE {
+    return PersonDE(id!!, name, email, friends)
 }

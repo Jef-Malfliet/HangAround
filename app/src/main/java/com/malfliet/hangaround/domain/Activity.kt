@@ -1,6 +1,7 @@
 package com.malfliet.hangaround.domain
 
 import android.os.Parcelable
+import com.malfliet.hangaround.persistence.database.ActivityDE
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
@@ -17,4 +18,17 @@ data class Activity constructor(
     var description: String
 ) : Parcelable {
 
+}
+
+fun Activity.asDatabaseModel(): ActivityDE {
+    return ActivityDE(
+        id!!,
+        name,
+        owner,
+        startDate,
+        endDate,
+        place,
+        participants,
+        description
+    )
 }

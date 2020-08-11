@@ -13,6 +13,15 @@ buildscript {
         version_moshi = "1.9.3"
         version_date_json_adapter = "1.6.0"
         version_gson = "2.8.5"
+        version_espresso = "3.2.0"
+        version_junit = "4.12"
+        version_testrunner = "1.2.0"
+        version_testrules = "1.2.0"
+        version_androidx_junit = "1.1.1"
+        version_mockk = "1.9.3"
+        version_testing_core = "2.1.0"
+        version_ui_automator = "2.2.0"
+        version_truth = "0.42"
     }
     repositories {
         google()

@@ -71,4 +71,17 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     implementation 'com.auth0.android:auth0:1.24.1'
+
+    testImplementation "junit:junit:$version_junit"
+    testImplementation "io.mockk:mockk:$version_mockk"
+    testImplementation "androidx.arch.core:core-testing:$version_testing_core"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version_kotlin_coroutines"
+
+    androidTestImplementation "androidx.test.espresso:espresso-core:$version_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$version_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$version_espresso"
+    androidTestImplementation "androidx.test:runner:$version_testrunner"
+    androidTestImplementation "androidx.test:rules:$version_testrules"
+    androidTestImplementation "androidx.test.ext:junit:$version_androidx_junit"
+    androidTestImplementation "androidx.arch.core:core-testing:$version_testing_core"
 }
