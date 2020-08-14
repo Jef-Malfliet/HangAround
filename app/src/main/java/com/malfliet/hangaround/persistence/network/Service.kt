@@ -28,7 +28,6 @@ private val retrofit = Retrofit.Builder()
 
 interface HangAroundAPIService {
 
-    //moet weg
     @GET("getPersons")
     fun getPersons(): Deferred<List<PersonDTO>>
 
@@ -44,7 +43,6 @@ interface HangAroundAPIService {
     @POST("updatePerson")
     fun updatePerson(@Body person: Person): Deferred<List<PersonDTO>>
 
-    //moet weg
     @GET("getActivities")
     fun getActivities(): Deferred<List<ActivityDTO>>
 

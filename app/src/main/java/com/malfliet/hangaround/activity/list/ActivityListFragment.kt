@@ -40,15 +40,6 @@ class ActivityListFragment : Fragment() {
 
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireActivity())
 
-        listAdapter = ActivityListAdapter(ActivityListener { activityId ->
-            findNavController().navigate(
-                ActivityListFragmentDirections.actionActivityListFragmentToActivityDetailFragment(
-                    activityId
-                )
-            )
-        }, sharedPreferences)
-        binding.rvActivities.adapter = listAdapter
-
         (requireActivity() as MainActivity).supportActionBar!!.title = "Activities"
 
         binding.floatingActionButton.setOnClickListener {
@@ -57,9 +48,18 @@ class ActivityListFragment : Fragment() {
 
         setHasOptionsMenu(false)
 
+        viewModel.refreshPersons()
         viewModel.getActivitiesContainingPerson(sharedPreferences.getString("personId", "")!!)
         viewModel.getActivitiesByOwner(sharedPreferences.getString("personId", "")!!)
-        viewModel.refreshPersons()
+
+        listAdapter = ActivityListAdapter(ActivityListener { activityId ->
+            findNavController().navigate(
+                ActivityListFragmentDirections.actionActivityListFragmentToActivityDetailFragment(
+                    activityId
+                )
+            )
+        }, sharedPreferences)
+        binding.rvActivities.adapter = listAdapter
 
         return binding.root
     }

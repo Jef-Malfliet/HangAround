@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.malfliet.hangaround.domain.Person
 import com.malfliet.hangaround.persistence.database.HangAroundDatabase
+import com.malfliet.hangaround.persistence.repository.ActivityRepository
 import com.malfliet.hangaround.persistence.repository.LoginRepository
 import com.malfliet.hangaround.persistence.repository.PersonRepository
 import kotlinx.coroutines.CoroutineScope
@@ -22,6 +23,7 @@ class ProfileViewModel(application: Application) : ViewModel() {
     private val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(application)
 
     private val personRepository = PersonRepository(database)
+    private val activityRepository = ActivityRepository(database)
     private val loginRepository = LoginRepository(application, database)
 
 
@@ -29,6 +31,10 @@ class ProfileViewModel(application: Application) : ViewModel() {
     var persons = personRepository.persons
 
     fun logout() {
+        coroutineScope.launch {
+            personRepository.clearAll()
+            activityRepository.clearAll()
+        }
         loginRepository.logout()
     }
 

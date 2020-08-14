@@ -79,7 +79,7 @@ class ActivityAddViewModel(application: Application, private var activityId: Str
             Activity(
                 null,
                 name,
-                "5e00e87f520fe30025c17e61",
+                personId!!,
                 startDateString,
                 endDateString,
                 place,
@@ -115,7 +115,7 @@ class ActivityAddViewModel(application: Application, private var activityId: Str
             Activity(
                 id,
                 name,
-                "5e00e87f520fe30025c17e61",
+                personId!!,
                 startDateString,
                 endDateString,
                 place,

@@ -88,8 +88,7 @@ class ActivityAddFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.save) {
             if (checkAllInputsFilledIn() && checkInputsValid() && checkDatesAfterToday()) {
-                var succeeded = false
-                succeeded = if (args.activityId == null) {
+                val succeeded = if (args.activityId == null) {
                     createActivity()
                 } else {
                     updateActivity()
@@ -114,7 +113,16 @@ class ActivityAddFragment : Fragment() {
                 viewModel.participants.value!!.find { participant -> participant.personId == participantPersonId }?.role
             val person =
                 viewModel.persons.value!!.find { person -> person.id == participantPersonId }
-            buildParticipantDialog(inflater, person, role)
+            val participants =
+                viewModel.persons.value!!.filter { p -> p.id != viewModel.personId }
+                    .filter { p ->
+                        !viewModel.participants.value!!.map { part -> part.personId }.contains(p.id)
+                    }.toMutableList()
+            participants.add(person!!)
+            val participantNames = participants.map { p -> p.name }.toMutableList()
+            spinnerAdapter.clear()
+            spinnerAdapter.addAll(participantNames)
+            buildParticipantDialog(inflater, person, role, participants)
         }
 
         val deleteClickListener = DeleteClickListener { participantPersonId ->
@@ -131,11 +139,22 @@ class ActivityAddFragment : Fragment() {
     private fun setupParticipantDialog(inflater: LayoutInflater) {
         binding.floatingActionButton.setOnClickListener {
             hideKeyboardFrom(context!!, view!!)
-            buildParticipantDialog(inflater, null, null)
+            val persons =
+                viewModel.persons.value!!.filter { person -> person.id != viewModel.personId }
+                    .filter { person ->
+                        !viewModel.participants.value!!.map { part -> part.personId }
+                            .contains(person.id)
+                    }
+            buildParticipantDialog(inflater, null, null, persons)
         }
     }
 
-    private fun buildParticipantDialog(inflater: LayoutInflater, person: Person?, role: String?) {
+    private fun buildParticipantDialog(
+        inflater: LayoutInflater,
+        person: Person?,
+        role: String?,
+        persons: List<Person>
+    ) {
         val dialogLayout = inflater.inflate(R.layout.dialog_add_participant, null)
         val spinner = (dialogLayout.findViewById(R.id.spinner_friend) as Spinner)
         val editTextRole = (dialogLayout.findViewById(R.id.input_role) as EditText)
@@ -155,14 +174,15 @@ class ActivityAddFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    val selectedPerson = viewModel.persons.value!![position]
+                    //moet van ergens anders zoeken, lijst meegeven
+                    val selectedPerson = persons[position]
                     newParticipant = selectedPerson
                 }
             }
         spinner.adapter = spinnerAdapter
         if (person != null) {
             newParticipant = person
-            val index = viewModel.persons.value!!.indexOf(person)
+            val index = spinner.adapter.count - 1
             spinner.setSelection(index)
         }
         builder.setView(dialogLayout)
@@ -372,7 +392,9 @@ class ActivityAddFragment : Fragment() {
                                 !tempList.map { part -> part.personId }.contains(person.id)
                             }
                             .map { person -> person.name }
-                    fillSpinnerAdapter(possibleParticipantNames)
+                    spinnerAdapter.clear()
+                    spinnerAdapter.addAll(possibleParticipantNames)
+                    manageFloatingButton(possibleParticipantNames)
                 }
             }
         })
@@ -387,18 +409,19 @@ class ActivityAddFragment : Fragment() {
                     it.filter { person -> person.id != viewModel.personId }
                         .filter { person -> !participantIds.contains(person.id) }
                         .map { person -> person.name }
-                fillSpinnerAdapter(possibleParticipantNames)
+                spinnerAdapter.clear()
+                spinnerAdapter.addAll(possibleParticipantNames)
+                manageFloatingButton(possibleParticipantNames)
             }
         })
     }
 
-    private fun fillSpinnerAdapter(possibleParticipantNames: List<String>) {
+    private fun manageFloatingButton(possibleParticipantNames: List<String>) {
         if (possibleParticipantNames.isNotEmpty()) {
             binding.floatingActionButton.backgroundTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
             binding.floatingActionButton.isEnabled = true
             binding.floatingActionButton.isClickable = true
-            spinnerAdapter.addAll(possibleParticipantNames)
         } else {
             binding.floatingActionButton.backgroundTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.grey))
