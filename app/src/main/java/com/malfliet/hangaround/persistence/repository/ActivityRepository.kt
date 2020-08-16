@@ -9,6 +9,7 @@ import com.malfliet.hangaround.persistence.network.DTO.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import java.net.SocketTimeoutException
 
 class ActivityRepository(private val database: HangAroundDatabase) {
 
@@ -65,8 +66,12 @@ class ActivityRepository(private val database: HangAroundDatabase) {
             try {
                 val activityDTO = HangAroundAPI.service.deleteActivity(activityId).await()
                 database.activityDao.deleteAll(*activityDTO.asDatabaseModel())
-            } catch (ex: Exception) {
-                Timber.d(ex)
+            } catch (e: SocketTimeoutException) {
+                val activityDTO = HangAroundAPI.service.deleteActivity(activityId).await()
+                database.activityDao.deleteAll(*activityDTO.asDatabaseModel())
+            } catch (e: Exception) {
+                Timber.d(e)
+                e.printStackTrace()
             }
         }
     }
@@ -83,8 +88,13 @@ class ActivityRepository(private val database: HangAroundDatabase) {
                 val activityDTO =
                     HangAroundAPI.service.getActivitiesContainingPerson(personId).await()
                 database.activityDao.insertAll(*activityDTO.asDatabaseModel())
-            } catch (ex: Exception) {
-                Timber.d(ex)
+            } catch (e: SocketTimeoutException) {
+                val activityDTO =
+                    HangAroundAPI.service.getActivitiesContainingPerson(personId).await()
+                database.activityDao.insertAll(*activityDTO.asDatabaseModel())
+            } catch (e: Exception) {
+                Timber.d(e)
+                e.printStackTrace()
             }
         }
     }
@@ -95,8 +105,13 @@ class ActivityRepository(private val database: HangAroundDatabase) {
                 val activityDTO =
                     HangAroundAPI.service.getActivitiesByOwner(personId).await()
                 database.activityDao.insertAll(*activityDTO.asDatabaseModel())
-            } catch (ex: Exception) {
-                Timber.d(ex)
+            } catch (e: SocketTimeoutException) {
+                val activityDTO =
+                    HangAroundAPI.service.getActivitiesByOwner(personId).await()
+                database.activityDao.insertAll(*activityDTO.asDatabaseModel())
+            } catch (e: Exception) {
+                Timber.d(e)
+                e.printStackTrace()
             }
         }
     }

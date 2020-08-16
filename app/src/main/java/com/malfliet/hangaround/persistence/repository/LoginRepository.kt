@@ -106,5 +106,10 @@ class LoginRepository(val context: Context, val database: HangAroundDatabase) {
             putString("email", person.email)
         }
         editor.commit()
+        runBlocking {
+            personRepository.refreshPersons()
+            activityRepository.getActivitiesContainingPerson(person.id!!)
+            activityRepository.getActivitiesByOwner(person.id!!)
+        }
     }
 }
